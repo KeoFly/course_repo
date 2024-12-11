@@ -4,11 +4,11 @@ graph = {'0': set(['1', '2']),
          '3': set(['1']),
          '4': set(['2', '3'])}
 
-def dfs(graph, start, visited = []):
+def search_width(graph, start, visited = []):
     visited.append(start)
     for v in graph[start]:
         if v not in visited:
-            visited = dfs(graph, v, visited)
+            visited = search_width(graph, v, visited)
     return visited
 
-print(dfs(graph, '3'))
+print(search_width(graph, "3"))
