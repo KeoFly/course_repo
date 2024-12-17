@@ -5,7 +5,7 @@ class Point:
         self.y = y
 
     def __add__(self, other):
-        print(self.x + other.x, self.y + other.y)
+        return self.x + other.x, self.y + other.y
 
     def distance(self, x, y):
         print(((self.x - x) ** 2 + (self.y - y) ** 2) ** 0.5)

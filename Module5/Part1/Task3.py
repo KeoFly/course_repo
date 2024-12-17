@@ -2,82 +2,100 @@ from random import randint
 from time import sleep
 
 class Warrior:
+    def __init__(self, name):
+        self.name = name
+
     health: int = 100
     attack: int = 20
     endurance: int = 100
     armor: int = 100
 
-warrior1 = Warrior()
-warrior2 = Warrior()
 
-def movement(move1, move2, warrior1, warrior2):
-    if move1 == 1 and move2 == 1:
-        if warrior1.endurance > 0 and warrior2.endurance > 0:
-            warrior1.endurance -= 10
-            warrior2.endurance -= 10
-            warrior2.health -= randint(10, 30)
-            warrior1.health -= randint(10, 30)
-        elif warrior1.endurance == 0 and warrior2.endurance > 0:
-            warrior2.endurance -= 10
-            warrior1.health -= randint(10, 30)
-            warrior2.health -= randint(0, 10)
-        elif warrior1.endurance > 0 and warrior2.endurance == 0:
-            warrior1.endurance -= 10
-            warrior2.health -= randint(10, 30)
-            warrior1.health -= randint(0, 10)
-        else:
-            warrior1.health -= randint(0, 10)
-            warrior2.health -= randint(0, 10)
-        print(f"Warriors attack each other."
-              f"\n Warrior1 health: {warrior1.health}"
-              f"\n Warrior2 health: {warrior2.health}")
-        sleep(2)
+class Battle:
+    def __init__(self, first_warrior, second_warrior):
+        self.first_warrior = first_warrior
+        self.second_warrior = second_warrior
 
-    elif move1 == 1 and move2 == 2:
-        if warrior1.endurance > 0:
-            if warrior2.armor > 0:
-                warrior1.endurance -= 10
-                warrior2.health -= randint(0, 20)
-                warrior2.armor -= randint(0, 10)
+    def move(self, move1, move2, first_warrior, second_warrior):
+        if move1 == 1 and move2 == 1:
+            if first_warrior.endurance > 0 and second_warrior.endurance > 0:
+                first_warrior.endurance -= 10
+                second_warrior.endurance -= 10
+                second_warrior.health -= randint(10, 30)
+                first_warrior.health -= randint(10, 30)
+            elif first_warrior.endurance == 0 and second_warrior.endurance > 0:
+                second_warrior.endurance -= 10
+                first_warrior.health -= randint(10, 30)
+                second_warrior.health -= randint(0, 10)
+            elif first_warrior.endurance > 0 and second_warrior.endurance == 0:
+                first_warrior.endurance -= 10
+                second_warrior.health -= randint(10, 30)
+                first_warrior.health -= randint(0, 10)
             else:
-                warrior1.endurance -= 10
-                warrior2.health -= randint(10, 30)
-        else:
-            warrior2.health -= randint(0, 10)
-        print(f"Warrior1 attacks but warrior2 defends."
-              f"\n Warrior1 health: {warrior1.health}"
-              f"\n Warrior2 health: {warrior2.health}")
-        sleep(2)
-    elif move1 == 2 and move2 == 1:
-        if warrior2.endurance > 0:
-            if warrior1.armor > 0:
-                warrior2.endurance -= 10
-                warrior1.health -= randint(0, 20)
-                warrior1.armor -= randint(0, 10)
+                first_warrior.health -= randint(0, 10)
+                second_warrior.health -= randint(0, 10)
+            print(f"Warriors attack each other."
+                  f"\n {first_warrior.name} health: {first_warrior.health}"
+                  f"\n {second_warrior.name} health: {second_warrior.health}")
+            sleep(1)
+        elif move1 == 1 and move2 == 2:
+            if first_warrior.endurance > 0:
+                if second_warrior.armor > 0:
+                    first_warrior.endurance -= 10
+                    second_warrior.health -= randint(0, 20)
+                    second_warrior.armor -= randint(0, 10)
+                else:
+                    first_warrior.endurance -= 10
+                    second_warrior.health -= randint(10, 30)
             else:
-                warrior2.endurance -= 10
-                warrior1.health -= randint(10, 30)
+                second_warrior.health -= randint(0, 10)
+            print(f"{first_warrior.name} attacks but {second_warrior.name} defends."
+                  f"\n {first_warrior.name} health: {first_warrior.health}"
+                  f"\n {second_warrior.name} health: {second_warrior.health}")
+            sleep(1)
+        elif move1 == 2 and move2 == 1:
+            if second_warrior.endurance > 0:
+                if first_warrior.armor > 0:
+                    second_warrior.endurance -= 10
+                    first_warrior.health -= randint(0, 20)
+                    first_warrior.armor -= randint(0, 10)
+                else:
+                    second_warrior.endurance -= 10
+                    first_warrior.health -= randint(10, 30)
+            else:
+                first_warrior.health -= randint(0, 10)
+            print(f"{second_warrior.name} attacks but {first_warrior.name} defends."
+                  f"\n {first_warrior.name} health: {first_warrior.health}"
+                  f"\n {second_warrior.name} health: {second_warrior.health}")
+            sleep(1)
         else:
-            warrior1.health -= randint(0, 10)
-        print(f"Warrior2 attacks but warrior1 defends."
-              f"\n Warrior1 health: {warrior1.health}"
-              f"\n Warrior2 health: {warrior2.health}")
-        sleep(2)
-    else:
-        print(f"Warriors defend themselves."
-              f"\n Warrior1 health: {warrior1.health}"
-              f"\n Warrior2 health: {warrior2.health}")
-        sleep(2)
+            print(f"Warriors defend themselves."
+                  f"\n {first_warrior.name} health: {first_warrior.health}"
+                  f"\n {second_warrior.name} health: {second_warrior.health}")
+            sleep(1)
 
-while True:
-    move1 = randint(1, 2)
-    move2 = randint(1, 2)
-    movement(move1, move2, warrior1, warrior2)
-    if warrior2.health <= 10:
-        warrior2.health = 0
-        print("Warrior1 won!!!")
-        break
-    elif warrior1.health <= 10:
-        warrior1.health = 0
-        print("Warrior2 won!!!")
-        break
+    def fight(self):
+        while True:
+            move1 = randint(1, 2)
+            move2 = randint(1, 2)
+            self.move(move1, move2, self.first_warrior, self.second_warrior)
+            if self.second_warrior.health <= 10:
+                self.second_warrior.health = 0
+                winner = f"{self.first_warrior.name}"
+                break
+            elif self.first_warrior.health <= 10:
+                self.first_warrior.health = 0
+                winner = f"{self.second_warrior.name}"
+                break
+        return print(f"{winner} won!!!\n")
+
+
+
+warrior1 = Warrior("Ray")
+warrior2 = Warrior("John")
+warrior3 = Warrior("Boba")
+warrior4 = Warrior("Rex")
+battle1 = Battle(warrior1, warrior2)
+battle2 = Battle(warrior3, warrior4)
+battle1.fight()
+battle2.fight()
