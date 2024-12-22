@@ -11,7 +11,6 @@ p1 = Point(1, 1)
 p2 = Point(2, 2)
 p3 = p1 + p2
 print(p3)"""
-from os.path import abspath
 
 """class Student:
 
@@ -20,7 +19,7 @@ from os.path import abspath
 
     def __init__(self, name):
         self.name = name
-        
+
     def study(self):
         self.progress += 10
         self.tired += 15
@@ -38,8 +37,6 @@ from os.path import abspath
 s = Student("Ilya")
 print(s.name)
 """
-
-
 
 """class Stack:
 
@@ -62,7 +59,6 @@ s.push(7)
 
 for i in range(3):
     print(s.pop())"""
-
 
 """class Matrix:
 
@@ -89,7 +85,6 @@ m2 = Matrix([[1, 0], [0, 1]])
 m3 = m1 + m2
 
 print(m3.data)"""
-
 
 """class Animal:
 
@@ -118,8 +113,6 @@ cat1.make_noize()
 
 print(cat1._Animal__name)"""
 
-
-
 """class Salary:
 
     def __init__(self, pay):
@@ -141,4 +134,3 @@ class Employee:
 emp = Employee(1000, 1000)
 
 print(emp.annual_salary())"""
-print(abspath(__file__))
