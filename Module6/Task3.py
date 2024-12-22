@@ -12,6 +12,7 @@ get_html("https://www.google.ru")
 get_html("https://www.google.ru")
 get_html("https://www.google.ru")
 get_html("https://www.google.ru")
+get_html("https://www.google.ru")
 print(time() - start)
 
 async def get_html_async(link):
